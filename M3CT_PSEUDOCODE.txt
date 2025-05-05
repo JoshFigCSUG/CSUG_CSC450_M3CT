@@ -1,0 +1,51 @@
+start
+  // Loop three times
+  TRY
+    FOR i FROM 0 TO 2
+      Declarations
+        STRING string1
+        STRING string2
+        STRING result
+
+      // Display iteration number
+      DISPLAY i + 1, "."
+
+      // Prompt for and read the first string
+      DISPLAY "Enter a string: "
+      USERINPUT → string1
+      IF (input failed) THEN
+        THROW error "Failed to read the first string."
+      ENDIF
+
+      // Prompt for and read the second string
+      DISPLAY "Enter another string: "
+      USERINPUT → string2
+      IF (input failed) THEN
+        THROW error "Failed to read the second string."
+      ENDIF
+
+      // Concatenate the strings
+      result ← string1 + string2
+
+      // Display the concatenated string
+      DISPLAY "The concatenated string is: ", result
+
+      // Display separator if not the last iteration
+      IF (i < 2) THEN
+        DISPLAY "--- Next pair of strings ---"
+      ENDIF
+    ENDFOR
+  ENDTRY
+
+  // Catch any runtime errors
+  CATCH (runtime_error AS error)
+    DISPLAY "Error: ", error.message
+    DISPLAY "Program finished unsuccessfully."
+    RETURN 1 // Indicate unsuccessful program termination
+  ENDCATCH
+
+  // Program finished successfully
+  DISPLAY "Program finished successfully. Press 'Enter' key to end..."
+  WAIT_FOR_KEY_PRESS // Program pause as user input
+  RETURN 0 // Indicate successful program termination
+stop
