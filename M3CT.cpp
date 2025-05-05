@@ -22,7 +22,7 @@ int main() {
             string string2;
             string result;
 
-            cout << i+1 << "." << endl; // Display the current iteration
+            cout << i+1 << "." << endl; // Display current iteration
             cout << "Enter a string: ";
             getline(cin, string1);
             if (cin.fail()) { // Check if the input operation on cin failed
