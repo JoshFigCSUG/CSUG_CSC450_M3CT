@@ -1,0 +1,69 @@
+start
+
+    // Declarations
+    DECLARE INTEGER number1, number2, number3
+    DECLARE POINTER TO INTEGER pointer1, pointer2, pointer3
+
+    // Prompt user to enter three whole numbers
+    DISPLAY "Please enter a whole number: "
+    USERINPUT → number1
+    DISPLAY "Please enter another whole number: "
+    USERINPUT → number2
+    DISPLAY "and please the final whole number: "
+    USERINPUT → number3
+
+    // Dynamically allocate memory for integers and assign their memory addresses to the pointers
+    pointer1 ← ALLOCATE_MEMORY_FOR INTEGER
+    pointer2 ← ALLOCATE_MEMORY_FOR INTEGER
+    pointer3 ← ALLOCATE_MEMORY_FOR INTEGER
+
+    // Check if memory allocation failed for any of the pointers.
+    IF (pointer1 IS NULL OR pointer2 IS NULL OR pointer3 IS NULL) THEN
+        DISPLAY "Could not get enough memory. Program will stop."
+        // If memory was allocated for a pointer, deallocate the memory for the corresponding pointer.
+        IF (pointer1 IS NOT NULL) THEN
+            DEALLOCATE_MEMORY_OF pointer1
+        ENDIF
+        IF (pointer2 IS NOT NULL) THEN
+            DEALLOCATE_MEMORY_OF pointer2
+        ENDIF
+        IF (pointer3 IS NOT NULL) THEN
+            DEALLOCATE_MEMORY_OF pointer3
+        ENDIF
+        RETURN 1 // Indicate unsuccessful program termination.
+    ENDIF
+
+    // Dereference pointers and store the numbers at the memory addresses the pointers now hold.
+    STORE number1 AT ADDRESS_HELD_BY pointer1
+    STORE number2 AT ADDRESS_HELD_BY pointer2
+    STORE number3 AT ADDRESS_HELD_BY pointer3
+
+    // Output the original numbers entered.
+    DISPLAY "\nOriginal numbers entered:"
+    DISPLAY "First number: ", number1
+    DISPLAY "Second number: ", number2
+    DISPLAY "Third number: ", number3
+
+    // Output the numbers stored in dynamic memory.
+    DISPLAY "\nNumbers stored in dynamic memory:"
+    DISPLAY "Number1 via pointer1: ", VALUE_AT_ADDRESS_HELD_BY pointer1
+    DISPLAY "Number2 via pointer2: ", VALUE_AT_ADDRESS_HELD_BY pointer2
+    DISPLAY "Number3 via pointer3: ", VALUE_AT_ADDRESS_HELD_BY pointer3
+
+    // Deallocate the memory pointed to by its corresponding pointer.
+    DEALLOCATE_MEMORY_OF pointer1
+    DEALLOCATE_MEMORY_OF pointer2
+    DEALLOCATE_MEMORY_OF pointer3
+
+    // Set pointers to NULL to ensure they no longer point to valid memory.
+    pointer1 ← NULL
+    pointer2 ← NULL
+    pointer3 ← NULL
+
+    // Program pause
+    DISPLAY "\nPress 'Enter' key to end program."
+    WAIT_FOR_KEY_PRESS // Waits for user to press Enter
+
+    RETURN 0 // Indicate successful program termination.
+
+stop
